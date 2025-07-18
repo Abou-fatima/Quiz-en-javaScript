@@ -1,3 +1,3 @@
 export default {
- base: "/quiz-js/",
+ base: "/Quiz-en-javaScript/",
 }
