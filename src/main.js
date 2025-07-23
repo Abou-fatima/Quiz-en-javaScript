@@ -78,25 +78,31 @@ function startQuiz() {
 
     }
 
-    function showFeedback(isCorrect, correct, answer) {
-        const correctId = formatId(correct);
-        const sanitizedId = correctId.replace(/['"]+/g, ''); // Supprime les guillemets
-        const correctElement = document.querySelector(`label[for="${sanitizedId}"]`);
-        const answerId = formatId(answer);
-        const selectedElement = document.querySelector(`label[for="${answerId}"]`);
+function showFeedback(isCorrect, correct, answer) {
+    const correctId = formatId(correct);
+    const sanitizedId = correctId.replace(/['"]+/g, ''); // Supprime les guillemets
+    const correctElement = document.querySelector(`label[for="${sanitizedId}"]`);
+    const answerId = formatId(answer);
+    const selectedElement = document.querySelector(`label[for="${answerId}"]`);
 
-        if (selectedElement) {
-            selectedElement.classList.add(isCorrect ? "correct" : "incorrect");
+    if (selectedElement) {
+        selectedElement.classList.add(isCorrect ? "correct" : "incorrect");
+        // Ajout animation selon la réponse
+        if (isCorrect) {
+            selectedElement.classList.add("bounce-correct");
+        } else {
+            selectedElement.classList.add("shake-incorrect");
         }
-        if (!isCorrect && correctElement) {
-            correctElement.classList.add("correct");
-        }
-
-        const paragraph = document.createElement('p')
-        paragraph.innerText= isCorrect ? "Bravo tu as gagné !" : `Desloé ! La bonne réponse est : ${correct}`;
-        app.appendChild(paragraph);
-        nextQuestion()
     }
+    if (!isCorrect && correctElement) {
+        correctElement.classList.add("correct");
+    }
+
+    const paragraph = document.createElement('p')
+    paragraph.innerText= isCorrect ? "Bravo tu as gagné !" : `Desloé ! La bonne réponse est : ${correct}`;
+    app.appendChild(paragraph);
+    nextQuestion()
+}
     
     function nextQuestion() {
         const TIMEOUT = 4000
